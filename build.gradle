@@ -27,3 +27,8 @@ dependencies {
     testImplementation 'com.greghaskins:spectrum:1.2.0'
     testImplementation 'junit:junit:4.12'
 }
+
+application {
+    // Define the main class for the application
+    mainClassName = 'software.engineer.challenge.App'
+}
