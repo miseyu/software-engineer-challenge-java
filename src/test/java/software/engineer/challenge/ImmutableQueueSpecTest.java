@@ -59,6 +59,7 @@ public class ImmutableQueueSpecTest {
             });
         });
     }
+
     public static void assertThrows(Class<? extends Exception> exceptionClass, Code code) {
         boolean thrown = false;
         try {
@@ -72,6 +73,6 @@ public class ImmutableQueueSpecTest {
 
     @FunctionalInterface
     public interface Code {
-        public void run() throws Exception;
+        void run() throws Exception;
     }
 }

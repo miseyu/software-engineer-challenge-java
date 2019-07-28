@@ -20,20 +20,16 @@ public class ImmutableQueue<T> implements Queue<T> {
             this.size = tail.size + 1;
         }
 
-        private static InnerStack newInstance() {
-            return new InnerStack();
-        }
-
-        public boolean isEmpty() {
+        private boolean isEmpty() {
             return this.size == 0;
         }
 
-        public InnerStack<T> push(T obj) {
-            return new InnerStack(obj, this);
+        private InnerStack<T> push(T obj) {
+            return new InnerStack<>(obj, this);
         }
 
-        public InnerStack toReverseStack() {
-            InnerStack<T> stack = new InnerStack();
+        private InnerStack<T> toReverseStack() {
+            InnerStack<T> stack = new InnerStack<>();
             InnerStack<T> tail = this;
             while (!tail.isEmpty()) {
                 stack = stack.push(tail.head);
@@ -47,8 +43,8 @@ public class ImmutableQueue<T> implements Queue<T> {
     private InnerStack<T> reverse;
 
     public ImmutableQueue() {
-        this.order = InnerStack.newInstance();
-        this.reverse = InnerStack.newInstance();
+        this.order = new InnerStack<>();
+        this.reverse = new InnerStack<>();
     }
 
     public ImmutableQueue(InnerStack<T> order, InnerStack<T> reverse) {
@@ -61,7 +57,7 @@ public class ImmutableQueue<T> implements Queue<T> {
         if (t == null) {
             throw new IllegalArgumentException();
         }
-        return new ImmutableQueue(this.order.push(t), this.reverse);
+        return new ImmutableQueue<>(this.order.push(t), this.reverse);
     }
 
     @Override
@@ -70,19 +66,19 @@ public class ImmutableQueue<T> implements Queue<T> {
             throw new NoSuchElementException("queue empty");
         }
         if (!this.reverse.isEmpty()) {
-            return new ImmutableQueue(this.order, this.reverse.tail);
+            return new ImmutableQueue<>(this.order, this.reverse.tail);
         }
-        return new ImmutableQueue(InnerStack.newInstance(), this.order.toReverseStack().tail);
+        return new ImmutableQueue<>(new InnerStack<>(), this.order.toReverseStack().tail);
     }
 
     @Override
     public T head() {
-        if(this.isEmpty()) {
+        if (this.isEmpty()) {
             throw new NoSuchElementException();
         }
         if (this.reverse.isEmpty()) {
-            this.reverse= this.order.toReverseStack();
-            this.order = InnerStack.newInstance();
+            this.reverse = this.order.toReverseStack();
+            this.order = new InnerStack<>();
         }
         return this.reverse.head;
     }
